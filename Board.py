@@ -98,8 +98,15 @@ class Board:
     def makeMove(self, player, move):
         board = self.applyMove(player, move)
 
-    def Display_Board(self):
-        for i in range (0,9):
-            for j in range (0,9):
+    def displayBoard(self):
+        for i in range(0, 9):
+            for j in range(0, 9):
                 print(self.board)
             print()
+
+    def getWinner(self):
+        if self.black > self.white:
+            return 'B'
+        elif self.white > self.black:
+            return 'W'
+        return 'D'

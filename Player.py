@@ -3,7 +3,7 @@ class Player:
         self.player_type = player_type
         self.color = color
 
-    def getBestMove(self, board, depth):
+    def getBestMove(self, board, possible_moves, depth):
         pass
     # Implement Alpha-Beta Pruning minimax
 
