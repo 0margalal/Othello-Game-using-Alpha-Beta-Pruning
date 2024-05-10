@@ -6,35 +6,40 @@ def main():
     board = Board()
 
     players = []
-    playerType = input('Choose Black player type (human/AI): ')
+    playerType = input('Choose Black player type (Human/AI): ')
+    while playerType not in ['Human','AI']:
+        playerType = input('Choose Black player type (Human/AI): ')
     players.append(Player(playerType, 'B'))
-    playerType = input('Choose White player type (human/AI): ')
+    playerType = input('Choose White player type (Human/AI): ')
+    while playerType not in ['Human','AI']:
+        playerType = input('Choose Black player type (Human/AI): ')
     players.append(Player(playerType, 'W'))
 
-    depth = int(input('Choose difficulty 1-6:'))
-    while depth < 1:
-        depth = int(input('Difficulty must be greater than 0. Choose difficulty 1-6: '))
-    while depth > 6:
-        depth = int(input('Difficulty must be less than 7. Choose difficulty 1-6: '))
+    depth = int(input('Choose difficulty ( 1 -> Easy / 3 -> Medium / 5 -> Hard ) : '))
+    while depth not in [1, 3, 5]:
+        depth = int(input('Difficulty must be either ( 1 -> Easy / 3 -> Medium / 5 -> Hard ) : '))
 
-    print('Game Start')
+    print('\nGame Start\n')
+    board.displayBoard()
 
     count = 0
 
     while not board.isTerminal():
-        board.displayBoard()
+        print('\n')
         player = players[count % 2]
+        print("White's Turn\n" if count % 2 else "Black's Turn\n")
         possible_moves = board.getPossibleMoves(player)
-        print('Possible moves: ', possible_moves)
         if len(possible_moves) == 0:
             print('No possible moves. Turn skipped.')
             count += 1
             continue
-        if player.player_type == 'human':
+        print('Possible moves: ', possible_moves)
+        if player.player_type == 'Human':
             move = input('Enter move: ').split()
             move = (int(move[0]), int(move[1]))
             while move not in possible_moves:
                 move = input('Invalid move. Enter move: ').split()
+                print('Possible moves: ', possible_moves)
                 move = (int(move[0]), int(move[1]))
             board.makeMove(player, move)
         else:
@@ -42,14 +47,14 @@ def main():
             board.makeMove(player, move)
         count += 1
 
-    print('Game Over')
+    print('\nGame Over\n')
     winner = board.getWinner()
     if winner == 'B':
-        print('Black wins')
+        print('Black wins!')
     elif winner == 'W':
-        print('White wins')
+        print('White wins!')
     else:
-        print('Draw')
+        print('Draw!')
 
 
 if __name__ == '__main__':

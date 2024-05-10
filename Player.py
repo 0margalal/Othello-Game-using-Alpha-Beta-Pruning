@@ -5,7 +5,7 @@ class Player:
 
     def getBestMove(self, board, possible_moves, depth):
         pass
-    # Implement Alpha-Beta Pruning minimax
+        # Implement Alpha-Beta Pruning minimax
 
     def MaxValue(self, board, alpha, beta, depth) -> float:
         pass

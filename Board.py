@@ -1,7 +1,6 @@
 from Player import Player
 from typing import Self
 
-
 class Board:
     board = []
     for i in range(8):
@@ -14,6 +13,7 @@ class Board:
     def __init__(self):
         self.black = 2
         self.white = 2
+
         pass
 
     def isTerminal(self) -> bool:
@@ -82,28 +82,95 @@ class Board:
         return False
 
     def getPossibleMoves(self, player: Player) -> list[tuple[int, int]]:
-        color = player.GetColor()
+        color = player.color
+        temp = []
+        for i in range(8):
+            temp.append(['_', '_', '_', '_', '_', '_', '_', '_'])
         possible_moves = []
         for i in range(8):
             for j in range(8):
+                temp[i][j] = self.board[i][j]
                 if self.board[i][j] == '_':
                     if self.checkMove(i, j, color):
                         possible_moves.append((i, j))
+                        temp[i][j] = '*'
+        for element in temp:
+            print(element)
+        print()
         return possible_moves
 
-    def applyMove(self, player, move) -> Self:
+    def color_board(self, i, j, count, direction,colorr):
+        while count:
+            k = 0
+            if direction == 'R':
+                k = 1
+                j += k
+
+            if direction == 'L':
+                k = -1
+                j += k
+
+            if direction == 'U':
+                k = -1
+                i += k
+
+            if direction == 'D':
+                k = +1
+                i += k
+            self.board[i][j] = colorr
+            count -= 1
+        return self
+
+
+
+    def applyMove(self, player, move)->Self :
         tempboard = self
-        # apply move
+        i = int(move[0])
+        j = int(move[1])
+        tempboard.board[i][j] = player.color
+        colorr = player.color
+
+        up = 0
+        down = 0
+        left = 0
+        right = 0
+        while tempboard.board[i + 1][j] != '_' and tempboard.board[i+1][j] != player.color and i < 8:
+            down += 1
+            i += 1
+        i = move[0]
+        if tempboard.board[i][j] == player.color:
+            tempboard = tempboard.color_board( i, j, down, 'D',colorr )
+
+        while tempboard.board[i - 1][j] != '_' and tempboard.board[i-1][j] != player.color and i >= 0:
+            up += 1
+            i -= 1
+        i = move[0]
+        if tempboard.board[i][j] == player.color:
+            tempboard = tempboard.color_board( i, j, up, 'U',colorr)
+
+        while tempboard.board[i][j + 1] != '_' and tempboard.board[i][j+1] != player.color and j < 8:
+            right += 1
+            j += 1
+        j = move[1]
+        if tempboard.board[i][j] == player.color:
+            tempboard = tempboard.color_board( i, j, right, 'R',colorr)
+
+        while tempboard.board[i][j - 1] != '_' and tempboard.board[i][j-1] != player.color and j >= 0:
+            left += 1
+            j -= 1
+        j = move[1]
+        if tempboard.board[i][j] == player.color:
+            tempboard = tempboard.color_board( i, j, left, 'L',colorr)
+
         return tempboard
 
     def makeMove(self, player, move):
-        board = self.applyMove(player, move).board
+        self.board = self.applyMove(player, move).board
 
     def displayBoard(self):
-        for i in range(0, 9):
-            for j in range(0, 9):
-                print(self.board)
-            print()
+        for element in self.board:
+            print(element)
+        print()
 
     def getWinner(self):
         if self.black > self.white:
