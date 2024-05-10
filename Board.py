@@ -51,34 +51,34 @@ class Board:
             elif self.board[i][y] == color:
                 break
         # check if a diagonal move is possible
-        for x, y in zip(range(i + 1, 8), range(j + 1, 8)):
-            if self.board[x][y] == '_':
-                break
-            elif self.board[x][y] == color and x - i > 1:
-                return True
-            elif self.board[x][y] == color:
-                break
-        for x, y in zip(range(i - 1, -1, -1), range(j - 1, -1, -1)):
-            if self.board[x][y] == '_':
-                break
-            elif self.board[x][y] == color and i - x > 1:
-                return True
-            elif self.board[x][y] == color:
-                break
-        for x, y in zip(range(i + 1, 8), range(j - 1, -1, -1)):
-            if self.board[x][y] == '_':
-                break
-            elif self.board[x][y] == color and x - i > 1:
-                return True
-            elif self.board[x][y] == color:
-                break
-        for x, y in zip(range(i - 1, -1, -1), range(j + 1, 8)):
-            if self.board[x][y] == '_':
-                break
-            elif self.board[x][y] == color and i - x > 1:
-                return True
-            elif self.board[x][y] == color:
-                break
+        # for x, y in zip(range(i + 1, 8), range(j + 1, 8)):
+        #     if self.board[x][y] == '_':
+        #         break
+        #     elif self.board[x][y] == color and x - i > 1:
+        #         return True
+        #     elif self.board[x][y] == color:
+        #         break
+        # for x, y in zip(range(i - 1, -1, -1), range(j - 1, -1, -1)):
+        #     if self.board[x][y] == '_':
+        #         break
+        #     elif self.board[x][y] == color and i - x > 1:
+        #         return True
+        #     elif self.board[x][y] == color:
+        #         break
+        # for x, y in zip(range(i + 1, 8), range(j - 1, -1, -1)):
+        #     if self.board[x][y] == '_':
+        #         break
+        #     elif self.board[x][y] == color and x - i > 1:
+        #         return True
+        #     elif self.board[x][y] == color:
+        #         break
+        # for x, y in zip(range(i - 1, -1, -1), range(j + 1, 8)):
+        #     if self.board[x][y] == '_':
+        #         break
+        #     elif self.board[x][y] == color and i - x > 1:
+        #         return True
+        #     elif self.board[x][y] == color:
+        #         break
         return False
 
     def getPossibleMoves(self, player: Player) -> list[tuple[int, int]]:
