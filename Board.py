@@ -1,4 +1,6 @@
 from Player import Player
+from typing import Self
+
 
 class Board:
     board = []
@@ -8,7 +10,6 @@ class Board:
     board[3][4] = 'B'
     board[4][3] = 'B'
     board[4][4] = 'W'
-
 
     def __init__(self):
         self.black = 2
@@ -90,13 +91,13 @@ class Board:
                         possible_moves.append((i, j))
         return possible_moves
 
-    def applyMove(self, player, move) -> list[str]:
-        tempboard = self.board
+    def applyMove(self, player, move) -> Self:
+        tempboard = self
         # apply move
         return tempboard
 
     def makeMove(self, player, move):
-        board = self.applyMove(player, move)
+        board = self.applyMove(player, move).board
 
     def displayBoard(self):
         for i in range(0, 9):

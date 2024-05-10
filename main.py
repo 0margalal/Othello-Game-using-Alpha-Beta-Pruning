@@ -11,11 +11,11 @@ def main():
     playerType = input('Choose White player type (human/AI): ')
     players.append(Player(playerType, 'W'))
 
-    depth = int(input('Choose search depth: '))
+    depth = int(input('Choose difficulty 1-6:'))
     while depth < 1:
-        depth = int(input('Depth must be greater than 0. Choose search depth: '))
+        depth = int(input('Difficulty must be greater than 0. Choose difficulty 1-6: '))
     while depth > 6:
-        depth = int(input('Depth must be less than 7. Choose search depth: '))
+        depth = int(input('Difficulty must be less than 7. Choose difficulty 1-6: '))
 
     print('Game Start')
 
