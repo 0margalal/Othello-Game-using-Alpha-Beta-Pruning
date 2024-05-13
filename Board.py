@@ -17,6 +17,7 @@ class Board:
         pass
 
     def isTerminal(self) -> bool:
+        # print(self.black ," and ",self.white)
         return self.black + self.white == 64
 
     def checkMove(self, i, j, color) -> bool:
@@ -50,53 +51,17 @@ class Board:
                 return True
             elif self.board[i][y] == color:
                 break
-        # check if a diagonal move is possible
-        # for x, y in zip(range(i + 1, 8), range(j + 1, 8)):
-        #     if self.board[x][y] == '_':
-        #         break
-        #     elif self.board[x][y] == color and x - i > 1:
-        #         return True
-        #     elif self.board[x][y] == color:
-        #         break
-        # for x, y in zip(range(i - 1, -1, -1), range(j - 1, -1, -1)):
-        #     if self.board[x][y] == '_':
-        #         break
-        #     elif self.board[x][y] == color and i - x > 1:
-        #         return True
-        #     elif self.board[x][y] == color:
-        #         break
-        # for x, y in zip(range(i + 1, 8), range(j - 1, -1, -1)):
-        #     if self.board[x][y] == '_':
-        #         break
-        #     elif self.board[x][y] == color and x - i > 1:
-        #         return True
-        #     elif self.board[x][y] == color:
-        #         break
-        # for x, y in zip(range(i - 1, -1, -1), range(j + 1, 8)):
-        #     if self.board[x][y] == '_':
-        #         break
-        #     elif self.board[x][y] == color and i - x > 1:
-        #         return True
-        #     elif self.board[x][y] == color:
-        #         break
+
         return False
 
     def getPossibleMoves(self, player: Player) -> list[tuple[int, int]]:
         color = player.color
-        temp = []
-        for i in range(8):
-            temp.append(['_', '_', '_', '_', '_', '_', '_', '_'])
         possible_moves = []
         for i in range(8):
             for j in range(8):
-                temp[i][j] = self.board[i][j]
-                if self.board[i][j] == '_':
+                if self.board[i][j] == '_' or self.board[i][j] == '*':
                     if self.checkMove(i, j, color):
                         possible_moves.append((i, j))
-                        temp[i][j] = '*'
-        for element in temp:
-            print(element)
-        print()
         return possible_moves
 
     def color_board(self, i, j, count, direction,colorr):
@@ -134,28 +99,29 @@ class Board:
         down = 0
         left = 0
         right = 0
-        while tempboard.board[i + 1][j] != '_' and tempboard.board[i+1][j] != player.color and i < 8:
+        while i < 7 and tempboard.board[i + 1][j] != '_' and tempboard.board[i+1][j] != player.color :
             down += 1
             i += 1
         i = move[0]
         if tempboard.board[i][j] == player.color:
             tempboard = tempboard.color_board( i, j, down, 'D',colorr )
 
-        while tempboard.board[i - 1][j] != '_' and tempboard.board[i-1][j] != player.color and i >= 0:
+
+        while i >= 1 and tempboard.board[i - 1][j] != '_' and tempboard.board[i-1][j] != player.color  :
             up += 1
             i -= 1
         i = move[0]
         if tempboard.board[i][j] == player.color:
             tempboard = tempboard.color_board( i, j, up, 'U',colorr)
 
-        while tempboard.board[i][j + 1] != '_' and tempboard.board[i][j+1] != player.color and j < 8:
+        while j < 7 and tempboard.board[i][j + 1] != '_' and tempboard.board[i][j+1] != player.color :
             right += 1
             j += 1
         j = move[1]
         if tempboard.board[i][j] == player.color:
             tempboard = tempboard.color_board( i, j, right, 'R',colorr)
 
-        while tempboard.board[i][j - 1] != '_' and tempboard.board[i][j-1] != player.color and j >= 0:
+        while j >= 1 and tempboard.board[i][j - 1] != '_' and tempboard.board[i][j-1] != player.color :
             left += 1
             j -= 1
         j = move[1]
