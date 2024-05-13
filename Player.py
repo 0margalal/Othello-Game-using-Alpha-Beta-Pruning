@@ -1,6 +1,5 @@
-import math
-
 from Board import Board
+import math
 
 
 class Player:
@@ -16,25 +15,26 @@ class Player:
         alpha=-math.inf
         beta=math.inf
         robot=False
-        for move in initial_board.getPossibleMoves(initial_board , self):
-            new_board.board = initial_board.makeMove(initial_board, self,move)
-            score = self.alpha_beta_minimax(self, depth, alpha , beta , new_board , robot , P.color , P.player_type)
+        for move in initial_board.getPossibleMoves( self):
+            new_board = initial_board.makeMove(self,move)
+            score = self.alpha_beta_minimax( depth, alpha , beta , new_board , robot , P.color , P.player_type)
             if score > best_score:
                 best_move = move
                 best_score = score
     def alpha_beta_minimax(self, depth, alpha, beta, board , robot , opp_color , opp_pt):
         if depth == 0:
-            return (board.white-board.black)
+            return (board.white - board.black)
 
-        legal_moves = board.getPossibleMoves(board,self)
+        legal_moves = board.getPossibleMoves(self)
         if len(legal_moves) == 0:
             return (board.white-board.black)
 
         if robot:
             max_eval = -1000
+            new_board = Board()
             for move in legal_moves:
-                new_board = board.makeMove(board, self, move)
-                eval = self.alpha_beta_minimax(self , depth-1 ,alpha, beta, new_board, False , opp_color , opp_pt)
+                new_board = board.makeMove( self, move)
+                eval = self.alpha_beta_minimax( depth-1 ,alpha, beta, new_board, False , opp_color , opp_pt)
                 max_eval = max(max_eval, eval)
                 alpha = max(alpha, eval)
                 if beta <= alpha:
@@ -42,10 +42,11 @@ class Player:
             return max_eval
         else:
             min_eval = 1000
+            new_board = Board()
             oppenent = Player(opp_pt,opp_color)
             for move in legal_moves:
-                new_board = board.makeMove(board, oppenent,move) #ADD THE OTHER PLAYER
-                eval = self.alpha_beta_minimax(self , depth-1 ,alpha, beta, new_board, True)
+                new_board= board.makeMove( oppenent,move) #ADD THE OTHER PLAYER
+                eval = self.alpha_beta_minimax( depth-1 ,alpha, beta, new_board, True , opp_color , opp_pt)
                 min_eval = min(min_eval, eval)
                 beta = min(beta, eval)
                 if beta <= alpha:

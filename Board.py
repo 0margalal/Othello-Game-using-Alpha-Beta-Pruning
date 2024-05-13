@@ -59,7 +59,7 @@ class Board:
         possible_moves = []
         for i in range(8):
             for j in range(8):
-                if self.board[i][j] == '_' or self.board[i][j] == '*':
+                if self.board[i][j] == '_':
                     if self.checkMove(i, j, color):
                         possible_moves.append((i, j))
         return possible_moves
@@ -132,6 +132,8 @@ class Board:
 
     def makeMove(self, player, move):
         self.board = self.applyMove(player, move).board
+        # return self.applyMove(player, move).board
+
 
     def displayBoard(self):
         for element in self.board:

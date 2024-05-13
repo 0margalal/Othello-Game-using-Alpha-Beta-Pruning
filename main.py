@@ -100,7 +100,7 @@ def main():
                     else:
                         continue
         else:
-            move = player.getBestMove( player , depth , possible_moves, board , players[0].color )
+            move = player.getBestMove( depth , possible_moves, board , players[0].color )
             board.makeMove(player, move)
         draw_Board(screen, possible_moves)
 
