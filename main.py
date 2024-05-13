@@ -56,19 +56,16 @@ def init_screen():
 def main():
     turn = 1  # 1 for black, 2 for white
     screen = init_screen()
-    players = []
-    playerType = input('Choose Black player type (Human/AI): ')
-    while playerType not in ['Human', 'AI']:
-        playerType = input('Choose Black player type (Human/AI): ')
-    players.append(Player(playerType, 'B'))
+    players = [Player('Human', 'B')]
     playerType = input('Choose White player type (Human/AI): ')
     while playerType not in ['Human', 'AI']:
-        playerType = input('Choose Black player type (Human/AI): ')
+        playerType = input('Choose White player type (Human/AI): ')
     players.append(Player(playerType, 'W'))
-
-    depth = int(input('Choose difficulty ( 1 -> Easy / 3 -> Medium / 5 -> Hard ) : '))
-    while depth not in [1, 3, 5]:
-        depth = int(input('Difficulty must be either ( 1 -> Easy / 3 -> Medium / 5 -> Hard ) : '))
+    depth = 0
+    if players[0].player_type == 'AI' or players[1].player_type == 'AI':
+        depth = int(input('Choose difficulty ( 1 -> Easy / 3 -> Medium / 5 -> Hard ) : '))
+        while depth not in [1, 3, 5]:
+            depth = int(input('Difficulty must be either ( 1 -> Easy / 3 -> Medium / 5 -> Hard ) : '))
 
 
     print('\nGame Start\n')

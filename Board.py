@@ -5,11 +5,10 @@ class Board:
     board = []
     for i in range(8):
         board.append(['_', '_', '_', '_', '_', '_', '_', '_'])
-    board[2][3] = 'W'
     board[3][3] = 'W'
-    board[3][4] = 'W'
-    board[4][4] = 'B'
-    board[4][3] = 'W'
+    board[3][4] = 'B'
+    board[4][3] = 'B'
+    board[4][4] = 'W'
 
     def __init__(self):
         self.black = 2
