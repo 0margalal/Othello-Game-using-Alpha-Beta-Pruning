@@ -125,7 +125,8 @@ class Board:
                 break
             elif tempboard.board[i][y] == player.color:
                 break
-
+        self.black = sum(row.count('B') for row in tempboard.board)
+        self.white = sum(row.count('W') for row in tempboard.board)
         return tempboard
 
     def makeMove(self, player, move):
