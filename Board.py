@@ -1,5 +1,5 @@
-from Player import Player
 from typing import Self
+
 
 class Board:
     board = []
@@ -54,7 +54,7 @@ class Board:
 
         return False
 
-    def getPossibleMoves(self, player: Player) -> list[tuple[int, int]]:
+    def getPossibleMoves(self, player) -> list[tuple[int, int]]:
         color = player.color
         possible_moves = []
         for i in range(8):
@@ -64,7 +64,7 @@ class Board:
                         possible_moves.append((i, j))
         return possible_moves
 
-    def color_board(self, i, j, count, direction,colorr):
+    def color_board(self, i, j, count, direction, colorr):
         while count:
             k = 0
             if direction == 'R':
@@ -86,9 +86,7 @@ class Board:
             count -= 1
         return self
 
-
-
-    def applyMove(self, player, move)->Self :
+    def applyMove(self, player, move) -> Self:
         tempboard = self
         i = int(move[0])
         j = int(move[1])
@@ -99,41 +97,39 @@ class Board:
         down = 0
         left = 0
         right = 0
-        while i < 7 and tempboard.board[i + 1][j] != '_' and tempboard.board[i+1][j] != player.color :
+        while i < 7 and tempboard.board[i + 1][j] != '_' and tempboard.board[i + 1][j] != player.color:
             down += 1
             i += 1
         i = move[0]
         if tempboard.board[i][j] == player.color:
-            tempboard = tempboard.color_board( i, j, down, 'D',colorr )
+            tempboard = tempboard.color_board(i, j, down, 'D', colorr)
 
-
-        while i >= 1 and tempboard.board[i - 1][j] != '_' and tempboard.board[i-1][j] != player.color  :
+        while i >= 1 and tempboard.board[i - 1][j] != '_' and tempboard.board[i - 1][j] != player.color:
             up += 1
             i -= 1
         i = move[0]
         if tempboard.board[i][j] == player.color:
-            tempboard = tempboard.color_board( i, j, up, 'U',colorr)
+            tempboard = tempboard.color_board(i, j, up, 'U', colorr)
 
-        while j < 7 and tempboard.board[i][j + 1] != '_' and tempboard.board[i][j+1] != player.color :
+        while j < 7 and tempboard.board[i][j + 1] != '_' and tempboard.board[i][j + 1] != player.color:
             right += 1
             j += 1
         j = move[1]
         if tempboard.board[i][j] == player.color:
-            tempboard = tempboard.color_board( i, j, right, 'R',colorr)
+            tempboard = tempboard.color_board(i, j, right, 'R', colorr)
 
-        while j >= 1 and tempboard.board[i][j - 1] != '_' and tempboard.board[i][j-1] != player.color :
+        while j >= 1 and tempboard.board[i][j - 1] != '_' and tempboard.board[i][j - 1] != player.color:
             left += 1
             j -= 1
         j = move[1]
         if tempboard.board[i][j] == player.color:
-            tempboard = tempboard.color_board( i, j, left, 'L',colorr)
+            tempboard = tempboard.color_board(i, j, left, 'L', colorr)
 
         return tempboard
 
     def makeMove(self, player, move):
         self.board = self.applyMove(player, move).board
         # return self.applyMove(player, move).board
-
 
     def displayBoard(self):
         for element in self.board:
