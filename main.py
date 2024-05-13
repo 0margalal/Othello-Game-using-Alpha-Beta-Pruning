@@ -1,6 +1,7 @@
 from Board import Board
 from Player import Player
 import pygame
+import copy
 import math
 
 
@@ -23,9 +24,8 @@ RED = (255, 0, 0)
 def draw_Board(screen, possible_moves):
     screen.fill(GREEN)
 
-
-    for x in range(GRID_SIZE):
-        for y in range(GRID_SIZE):
+    for y in range(GRID_SIZE):
+        for x in range(GRID_SIZE):
             pygame.draw.rect(screen, BLACK, (x * CELL_SIZE, COUNTER_HEIGHT + y * CELL_SIZE, CELL_SIZE, CELL_SIZE), 1)
             if board.board[x][y] == 'B':
                 pygame.draw.circle(screen, BLACK,
@@ -100,8 +100,10 @@ def main():
                     else:
                         continue
         else:
-            move = player.getBestMove( depth , possible_moves, board , players[0].color )
+            new_board = copy.deepcopy(board)
+            move = player.getBestMove( depth , possible_moves, new_board , players[(turn+1)%2].color)
             board.makeMove(player, move)
+            turn = 3 - turn
         draw_Board(screen, possible_moves)
 
         count_pieces()

@@ -16,16 +16,18 @@ class Player:
         beta=math.inf
         robot=False
         for move in initial_board.getPossibleMoves( self):
-            new_board = initial_board.makeMove(self,move)
+            new_board = initial_board.applyMove(self,move)
             score = self.alpha_beta_minimax( depth, alpha , beta , new_board , robot , P.color , P.player_type)
             if score > best_score:
                 best_move = move
                 best_score = score
+        return best_move
     def alpha_beta_minimax(self, depth, alpha, beta, board , robot , opp_color , opp_pt):
         if depth == 0:
             return (board.white - board.black)
-
         legal_moves = board.getPossibleMoves(self)
+        if not robot:
+            legal_moves = board.getPossibleMoves(Player(opp_pt,opp_color))
         if len(legal_moves) == 0:
             return (board.white-board.black)
 
@@ -33,7 +35,7 @@ class Player:
             max_eval = -1000
             new_board = Board()
             for move in legal_moves:
-                new_board = board.makeMove( self, move)
+                new_board = board.applyMove( self, move)
                 eval = self.alpha_beta_minimax( depth-1 ,alpha, beta, new_board, False , opp_color , opp_pt)
                 max_eval = max(max_eval, eval)
                 alpha = max(alpha, eval)
@@ -45,22 +47,13 @@ class Player:
             new_board = Board()
             oppenent = Player(opp_pt,opp_color)
             for move in legal_moves:
-                new_board= board.makeMove( oppenent,move) #ADD THE OTHER PLAYER
+                new_board= board.applyMove( oppenent,move) #ADD THE OTHER PLAYER
                 eval = self.alpha_beta_minimax( depth-1 ,alpha, beta, new_board, True , opp_color , opp_pt)
                 min_eval = min(min_eval, eval)
                 beta = min(beta, eval)
                 if beta <= alpha:
                     break
             return min_eval
-
-    def MaxValue(self, board, alpha, beta, depth) -> float:
-        pass
-
-    def MinValue(self, board, alpha, beta, depth) :
-        pass
-
-    def utility(self, board):
-        return board.getWinner()
 
     def getColor(self):
         return self.color
