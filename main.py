@@ -3,6 +3,8 @@ from Player import Player
 import pygame
 import copy
 import math
+import time
+import sys
 
 
 board = Board()
@@ -87,6 +89,10 @@ def main():
 
         if player.player_type == 'Human':
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
                     x, y = pos[0] // CELL_SIZE, (pos[1] - COUNTER_HEIGHT) // CELL_SIZE
@@ -97,6 +103,7 @@ def main():
                     else:
                         continue
         else:
+            time.sleep(0.5)
             new_board = copy.deepcopy(board)
             move = player.getBestMove( depth , possible_moves, new_board , players[(turn+1)%2].color)
             board.makeMove(player, move)
