@@ -3,17 +3,27 @@ import math
 import copy
 
 
+def normalizer(value, min, max):
+    return (value - min) / (max - min)
+
+
 def utility(board, player):
     gameStage = board.white + board.black
     if player.color == 'B':
         pieceDifference = board.black - board.white
     else:
         pieceDifference = board.white - board.black
+    pieceDifference = normalizer(pieceDifference, 0, 64)
     mobility = len(board.getPossibleMoves(player))
+    mobility = normalizer(mobility, 0, 10)
     if gameStage < 12:
-        return mobility
+        return 6 * mobility
+    elif gameStage < 24:
+        return 2 * pieceDifference + 4 * mobility
     elif gameStage < 36:
         return 3 * pieceDifference + 3 * mobility
+    elif gameStage < 48:
+        return 4 * pieceDifference + 2 * mobility
     else:
         return 6 * pieceDifference
 
