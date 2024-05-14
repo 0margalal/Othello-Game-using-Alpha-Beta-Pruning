@@ -68,7 +68,7 @@ def main():
         depth = int(input('Choose difficulty ( 1 -> Easy / 3 -> Medium / 5 -> Hard ) : '))
         while depth not in [1, 3, 5]:
             depth = int(input('Difficulty must be either ( 1 -> Easy / 3 -> Medium / 5 -> Hard ) : '))
-    depth *= 3
+    depth *= 2
 
 
     print('\nGame Start\n')

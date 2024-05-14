@@ -13,9 +13,9 @@ def utility(board, player):
     if gameStage < 12:
         return mobility
     elif gameStage < 36:
-        return 3 * pieceDifference + mobility
+        return 3 * pieceDifference + 3 * mobility
     else:
-        return 3 * pieceDifference
+        return 6 * pieceDifference
 
 
 class Player:
@@ -31,9 +31,7 @@ class Player:
         beta = math.inf
         bestPossibleMoves = initial_board.getPossibleMoves(self)
         for move in bestPossibleMoves:
-            print("Move: ", move)
             new_board = copy.deepcopy(initial_board)
-            print(initial_board.getPossibleMoves(self))
             new_board = new_board.applyMove(self, move)
             score = self.alpha_beta_minimax(depth - 1, alpha, beta, new_board, False, P.color, P.player_type)
             if score > best_score:
@@ -42,7 +40,6 @@ class Player:
         return best_move
 
     def alpha_beta_minimax(self, depth, alpha, beta, board, robot, opp_color, opp_pt):
-        print(depth)
         if robot:
             max_eval = -1000
             legal_moves = board.getPossibleMoves(self)

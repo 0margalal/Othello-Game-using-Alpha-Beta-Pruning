@@ -18,7 +18,6 @@ class Board:
         pass
 
     def isTerminal(self) -> bool:
-        # print(self.black ," and ",self.white)
         return self.black + self.white == 64
 
     def checkMove(self, i, j, color) -> bool:
