@@ -1,4 +1,5 @@
 from typing import Self
+import copy
 
 
 class Board:
@@ -86,11 +87,11 @@ class Board:
         return self
 
     def applyMove(self, player, move) -> Self:
-        tempboard = self
-        if(move == None):
-            return tempboard
         i = int(move[0])
         j = int(move[1])
+        tempboard = copy.deepcopy(self)
+        if (move == None):
+            return tempboard
         tempboard.board[i][j] = player.color
         colorr = player.color
         for x in range(i + 1, 8):
@@ -125,8 +126,8 @@ class Board:
                 break
             elif tempboard.board[i][y] == player.color:
                 break
-        self.black = sum(row.count('B') for row in tempboard.board)
-        self.white = sum(row.count('W') for row in tempboard.board)
+        tempboard.black = sum(row.count('B') for row in tempboard.board)
+        tempboard.white = sum(row.count('W') for row in tempboard.board)
         return tempboard
 
     def makeMove(self, player, move):
