@@ -2,7 +2,6 @@ from Board import Board
 from Player import Player
 import pygame
 import copy
-import math
 import time
 import sys
 
@@ -90,6 +89,9 @@ def main():
 
         if player.player_type == 'Human':
             for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     pos = pygame.mouse.get_pos()
                     x, y = pos[0] // CELL_SIZE, (pos[1] - COUNTER_HEIGHT) // CELL_SIZE
