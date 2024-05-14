@@ -24,7 +24,7 @@ class Player:
         self.color = color
 
     def getBestMove(self, depth, possible_moves, initial_board, opp_color):
-        P = Player("Human", "opp_color")
+        P = Player("Human", opp_color)
         best_move = None
         best_score = -1000
         alpha = -math.inf
