@@ -1,5 +1,3 @@
-## othello-alpha-beta-pruning-backend
-
 ## E-Othello Game Documentation
 
 ### Overview
